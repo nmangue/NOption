@@ -7,7 +7,7 @@ namespace CodingHelmet.Optional
     public override Option<TResult> Map<TResult>(Func<T, TResult> map) =>
         None.Value;
 
-    public override Option<TResult> MapOptional<TResult>(Func<T, Option<TResult>> map) =>
+    public override Option<TResult> FlatMap<TResult>(Func<T, Option<TResult>> map) =>
         None.Value;
 
     public override T Reduce(T whenNone) =>
@@ -32,5 +32,20 @@ namespace CodingHelmet.Optional
     public static bool operator !=(None<T> a, None<T> b) => !(a == b);
 
     public override string ToString() => "None";
+
+    public override T Unwrap()
+    {
+      throw new InvalidOperationException();
+    }
+
+    public override T UnwrapOr(T value)
+    {
+      return value; 
+    }
+
+    public override void Match(Action<T> some, Action none)
+    {
+      none();
+    }
   }
 }

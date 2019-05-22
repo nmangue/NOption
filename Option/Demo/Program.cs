@@ -15,7 +15,7 @@ namespace Demo
             MappingDemo();
             ObjectNoneIfNullDemo();
             ObjectWhenDemo();
-            OptionOfTypeDemo();
+            OptionAsDemo();
             EnumerableFirstOrNoneDemo();
             EnumerableSelectOptionalDemo();
             DictionaryTryGetValueDemo();
@@ -52,9 +52,9 @@ namespace Demo
             Option<Person> someChild = child;
             Option<Person> someGrownUp = grownUp;
 
-            Option<Car> noCar = noPerson.MapOptional(person => person.TryGetCar());
-            Option<Car> noChildCar = someChild.MapOptional(person => person.TryGetCar());
-            Option<Car> someGrownUpCar = someGrownUp.MapOptional(person => person.TryGetCar());
+            Option<Car> noCar = noPerson.FlatMap(person => person.TryGetCar());
+            Option<Car> noChildCar = someChild.FlatMap(person => person.TryGetCar());
+            Option<Car> someGrownUpCar = someGrownUp.FlatMap(person => person.TryGetCar());
 
             Console.WriteLine($"{noCar}, {noChildCar}, {someGrownUpCar}");
         }
@@ -83,15 +83,15 @@ namespace Demo
             Console.WriteLine($"{blue} -> {ugly}");
         }
 
-        private static void OptionOfTypeDemo()
+        private static void OptionAsDemo()
         {
-            Console.WriteLine("\n*** Option.OfType() demo:");
+            Console.WriteLine("\n*** Option.As() demo:");
             Option<Car> someCar = new Car("car", Color.Red);
             Option<Car> noCar = None.Value;
 
-            Console.WriteLine(someCar.OfType<Vehicle>()); // Some
-            Console.WriteLine(noCar.OfType<Vehicle>());   // None
-            Console.WriteLine(someCar.OfType<Truck>());   // None
+            Console.WriteLine(someCar.As<Vehicle>()); // Some
+            Console.WriteLine(noCar.As<Vehicle>());   // None
+            Console.WriteLine(someCar.As<Truck>());   // None
         }
 
         private static void EnumerableFirstOrNoneDemo()
@@ -209,7 +209,7 @@ namespace Demo
             }
 
             Option<ICar> abstractCar =
-                jill.TryGetCar().OfType<ICar>();  // Some<ICar>
+                jill.TryGetCar().As<ICar>();  // Some<ICar>
 
             if (abstractCar is Some<ICar> someOther)
             {

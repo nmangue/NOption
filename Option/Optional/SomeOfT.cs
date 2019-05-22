@@ -21,7 +21,7 @@ namespace CodingHelmet.Optional
         public override Option<TResult> Map<TResult>(Func<T, TResult> map) =>
             map(this.Content);
 
-        public override Option<TResult> MapOptional<TResult>(Func<T, Option<TResult>> map) =>
+        public override Option<TResult> FlatMap<TResult>(Func<T, Option<TResult>> map) =>
             map(this.Content);
 
         public override T Reduce(T whenNone) =>
@@ -55,7 +55,22 @@ namespace CodingHelmet.Optional
             return EqualityComparer<T>.Default.GetHashCode(Content);
         }
 
-        public static bool operator ==(Some<T> a, Some<T> b) =>
+    public override T Unwrap()
+    {
+        return Content;
+    }
+
+    public override T UnwrapOr(T value)
+    {
+        return Unwrap();
+    }
+
+    public override void Match(Action<T> some, Action none)
+    {
+        some(Content);
+    }
+
+    public static bool operator ==(Some<T> a, Some<T> b) =>
             (a is null && b is null) ||
             (!(a is null) && a.Equals(b));
 
