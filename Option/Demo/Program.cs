@@ -48,7 +48,7 @@ namespace Demo
 
             Console.WriteLine($"{none}, {some}");
 
-            Option<Person> noPerson = None.Value;
+            Option<Person> noPerson = Option.None;
             Option<Person> someChild = child;
             Option<Person> someGrownUp = grownUp;
 
@@ -87,7 +87,7 @@ namespace Demo
         {
             Console.WriteLine("\n*** Option.As() demo:");
             Option<Car> someCar = new Car("car", Color.Red);
-            Option<Car> noCar = None.Value;
+            Option<Car> noCar = Option.None;
 
             Console.WriteLine(someCar.As<Vehicle>()); // Some
             Console.WriteLine(noCar.As<Vehicle>());   // None
@@ -121,7 +121,7 @@ namespace Demo
             };
 
             IEnumerable<Color> carColors =
-                people.SelectOptional(person => person.TryGetCar())
+                people.SelectSome(person => person.TryGetCar())
                     .Select(car => car.Color); // [Red, Blue]
 
             Console.WriteLine(string.Join(", ", carColors.Select(c => c.Label).ToArray()));
@@ -139,7 +139,7 @@ namespace Demo
             };
 
             IDictionary<string, Car> nameToCar = people             // IEnumerable<Person>
-                .SelectOptional(person =>
+                .SelectSome(person =>
                         person.TryGetCar()                              // Option<Car>
                             .Map(car => (name: person.Name, car: car))  // Option<(string, Car)>
                 )                                               // IEnumerable<(string, Car)>
@@ -159,8 +159,8 @@ namespace Demo
             Option<Color> equal = Color.Red;
             Option<Color> blue = Color.Blue;
 
-            Option<Color> none = None.Value;
-            Option<Color> andNone = None.Value;
+            Option<Color> none = Option.None;
+            Option<Color> andNone = Option.None;
 
             Console.WriteLine($"HashCode {red.GetHashCode()} : {equal.GetHashCode()}");
 
@@ -170,15 +170,15 @@ namespace Demo
             Console.WriteLine($"{red} {(red.Equals(blue) ? "==" : "!=")} {blue}");
 
             Console.WriteLine($"{none} {(none.Equals(andNone) ? "==" : "!=")} {andNone}");
-            Console.WriteLine($"{none} {(none.Equals(None.Value) ? "==" : "!=")} {None.Value}");
-            Console.WriteLine($"{None.Value} {(None.Value.Equals(none) ? "==" : "!=")} {none}");
+            Console.WriteLine($"{none} {(none.Equals(Option.None) ? "==" : "!=")} {Option.None}");
+            Console.WriteLine($"{Option.None} {(Option.None.Equals(none) ? "==" : "!=")} {none}");
 
             List<string> list = new List<string>() {"a", "b", "c"};
             string listString = "[" + string.Join(", ", list.ToArray()) + "]";
-            Console.WriteLine($"{None.Value} {(None.Value.Equals(list) ? "==" : "!=")} {listString}");
-            Console.WriteLine($"{listString} {(list.Equals(None.Value) ? "==" : "!=")} {None.Value}");
+            Console.WriteLine($"{Option.None} {(Option.None.Equals(list) ? "==" : "!=")} {listString}");
+            Console.WriteLine($"{listString} {(list.Equals(Option.None) ? "==" : "!=")} {Option.None}");
             Console.WriteLine($"{none} {(none.Equals(list) ? "==" : "!=")} {listString}");
-            Console.WriteLine($"{listString} {(list.Equals(none) ? "==" : "!=")} {None.Value}");
+            Console.WriteLine($"{listString} {(list.Equals(none) ? "==" : "!=")} {Option.None}");
         }
 
         private static void PrintName(Car car)
@@ -213,7 +213,7 @@ namespace Demo
 
             if (abstractCar is Some<ICar> someOther)
             {
-                PrintAbstractName(someOther.Content);
+                PrintAbstractName(someOther.Unwrap());
             }
         }
     }

@@ -10,9 +10,10 @@ namespace CodingHelmet.Optional
         public static implicit operator Option<T>(None none) =>
             new None<T>();
 
-        public abstract T Unwrap();
 
+        public abstract T Unwrap();
         public abstract T UnwrapOr(T value);
+        public abstract T UnwrapOr(Func<T> f);
 
         public T UnwrapOrDefault()
         {
@@ -23,12 +24,7 @@ namespace CodingHelmet.Optional
 
         public abstract Option<TResult> Map<TResult>(Func<T, TResult> map);
         public abstract Option<TResult> FlatMap<TResult>(Func<T, Option<TResult>> map);
-        public abstract T Reduce(T whenNone);
-        public abstract T Reduce(Func<T> whenNone);
 
-        public Option<TNew> As<TNew>() where TNew : class =>
-            this is Some<T> some && typeof(TNew).IsAssignableFrom(typeof(T))
-                ? (Option<TNew>)new Some<TNew>(some.Content as TNew)
-                : None.Value;
+        public abstract Option<TNew> As<TNew>() where TNew : class;
     }
 }

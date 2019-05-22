@@ -10,11 +10,7 @@ namespace CodingHelmet.Optional
     public override Option<TResult> FlatMap<TResult>(Func<T, Option<TResult>> map) =>
         None.Value;
 
-    public override T Reduce(T whenNone) =>
-        whenNone;
 
-    public override T Reduce(Func<T> whenNone) =>
-        whenNone();
 
     public override bool Equals(object obj) =>
         !(obj is null) && ((obj is None<T>) || (obj is None));
@@ -33,19 +29,13 @@ namespace CodingHelmet.Optional
 
     public override string ToString() => "None";
 
-    public override T Unwrap()
-    {
-      throw new InvalidOperationException();
-    }
+    public override T Unwrap() => throw new InvalidOperationException();
 
-    public override T UnwrapOr(T value)
-    {
-      return value; 
-    }
+    public override T UnwrapOr(T value) => value;
+    public override T UnwrapOr(Func<T> f) => f();
 
-    public override void Match(Action<T> some, Action none)
-    {
-      none();
-    }
+    public override void Match(Action<T> some, Action none) => none();
+
+    public override Option<TNew> As<TNew>() => Option.None;
   }
 }

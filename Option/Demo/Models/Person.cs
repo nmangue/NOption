@@ -18,6 +18,6 @@ namespace Demo.Models
         public Option<Car> TryGetCar() =>
             this.Age >= 18 
                 ? (Option<Car>)new Car($"{this.Name}'s {this.FavoriteColor.Label.ToLower()} car", this.FavoriteColor) 
-                : None.Value;
+                : Option.None;
     }
 }

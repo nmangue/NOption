@@ -8,14 +8,14 @@ namespace CodingHelmet.Optional.Extensions
     {
         public static Option<T> FirstOrNone<T>(this IEnumerable<T> sequence) =>
             sequence.Select(x => (Option<T>)new Some<T>(x))
-                .DefaultIfEmpty(None.Value)
+                .DefaultIfEmpty(Option.None)
                 .First();
 
         public static Option<T> FirstOrNone<T>(
             this IEnumerable<T> sequence, Func<T, bool> predicate) =>
             sequence.Where(predicate).FirstOrNone();
 
-        public static IEnumerable<TResult> SelectOptional<T, TResult>(
+        public static IEnumerable<TResult> SelectSome<T, TResult>(
             this IEnumerable<T> sequence, Func<T, Option<TResult>> map) =>
             sequence.Select(map)
                 .OfType<Some<TResult>>()
