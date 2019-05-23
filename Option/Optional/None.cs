@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodingHelmet.Optional
+namespace Standard.Options
 {
   public sealed class None : IEquatable<None>
   {

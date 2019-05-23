@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CodingHelmet.Optional
+namespace Standard.Options
 {
   public sealed class Some<T> : Option<T>, IEquatable<Some<T>>
   {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CodingHelmet.Optional.Extensions
+namespace Standard.Options.Extensions
 {
     public static class EnumerableExtensions
     {

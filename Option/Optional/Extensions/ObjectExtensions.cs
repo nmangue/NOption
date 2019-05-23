@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodingHelmet.Optional.Extensions
+namespace Standard.Options.Extensions
 {
     public static class ObjectExtensions
     {

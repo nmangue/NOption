@@ -1,4 +1,4 @@
-namespace CodingHelmet.Optional
+namespace Standard.Options
 {
   public static class Option
   {
