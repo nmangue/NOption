@@ -44,9 +44,11 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="None.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="NoneOfT.cs" />
     <Compile Include="Option.cs" />
+    <Compile Include="OptionOfT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Some.cs" />
+    <Compile Include="SomeOfT.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
