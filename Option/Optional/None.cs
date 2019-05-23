@@ -8,8 +8,6 @@ namespace CodingHelmet.Optional
 
     private None() { }
 
-    public override string ToString() => "None";
-
     public override bool Equals(object obj) =>
         !(obj is null) && ((obj is None) || this.IsGenericNone(obj.GetType()));
 
@@ -20,5 +18,7 @@ namespace CodingHelmet.Optional
     public bool Equals(None other) => true;
 
     public override int GetHashCode() => 0;
+
+    public override string ToString() => nameof(None);
   }
 }

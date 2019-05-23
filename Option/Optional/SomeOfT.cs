@@ -12,20 +12,22 @@ namespace CodingHelmet.Optional
       this.Content = value;
     }
 
-    public static implicit operator T(Some<T> some) => some.Content;
-
-    public static implicit operator Some<T>(T value) => new Some<T>(value);
-
-    public override Option<TResult> Map<TResult>(Func<T, TResult> f) => f(Content);
-
-    public override Option<TResult> FlatMap<TResult>(Func<T, Option<TResult>> f) => f(Content);
+    public override void Match(Action<T> some, Action none) => some(Content);
 
     public override T Unwrap() => Content;
 
     public override T UnwrapOr(T value) => Content;
 
-    public override void Match(Action<T> some, Action none) => some(Content);
-    
+    public override T UnwrapOr(Func<T> f) => Content;
+
+    public override Option<TResult> Map<TResult>(Func<T, TResult> f) => f(Content);
+
+    public override Option<TResult> FlatMap<TResult>(Func<T, Option<TResult>> f) => f(Content);
+
+    public override Option<TNew> As<TNew>() =>
+           typeof(TNew).IsAssignableFrom(typeof(T))
+                ? (Option<TNew>)new Some<TNew>(Content as TNew)
+                : None.Value;
 
     public override string ToString() => $"Some({this.ContentToString})";
 
@@ -50,17 +52,14 @@ namespace CodingHelmet.Optional
       return EqualityComparer<T>.Default.GetHashCode(Content);
     }
 
-    public override T UnwrapOr(Func<T> f) => Content;
-
     public static bool operator ==(Some<T> a, Some<T> b) =>
             (a is null && b is null) ||
             (!(a is null) && a.Equals(b));
 
     public static bool operator !=(Some<T> a, Some<T> b) => !(a == b);
 
-    public override Option<TNew> As<TNew>() => 
-           typeof(TNew).IsAssignableFrom(typeof(T))
-                ? (Option<TNew>)new Some<TNew>(Content as TNew)
-                : None.Value;
+    public static implicit operator T(Some<T> some) => some.Content;
+
+    public static implicit operator Some<T>(T value) => new Some<T>(value);
   }
 }
