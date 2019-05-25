@@ -5,7 +5,7 @@ namespace Standard.Options
 {
   public sealed class Some<T> : Option<T>, IEquatable<Some<T>>
   {
-    internal T Content { get; }
+    public T Content { get; }
 
     public Some(T value)
     {

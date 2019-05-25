@@ -4,7 +4,7 @@ namespace Standard.Options
 {
   public abstract class Option<T>
   {
-    public abstract void Match(Action<T> some, Action none);
+    public abstract void Match(Action<T> Some, Action None);
 
     public abstract T Unwrap();
 
@@ -25,6 +25,6 @@ namespace Standard.Options
 
     public static implicit operator Option<T>(T value) => new Some<T>(value);
 
-    public static implicit operator Option<T>(None none) => new None<T>();
+    public static implicit operator Option<T>(None _) => new None<T>();
   }
 }
