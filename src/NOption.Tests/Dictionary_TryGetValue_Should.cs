@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Xunit;
-using Standard.Options.Extensions;
+using NOption.Extensions;
 
-namespace Standard.Options.Tests
+namespace NOption.Tests
 {
     public class Dictionary_TryGetValue_Should
     {

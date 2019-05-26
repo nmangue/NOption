@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Standard.Options\Standard.Options.csproj" />
+    <ProjectReference Include="..\NOption\NOption.csproj" />
   </ItemGroup>
 
 </Project>

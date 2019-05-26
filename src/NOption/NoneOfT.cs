@@ -1,6 +1,6 @@
 using System;
 
-namespace Standard.Options
+namespace NOption
 {
   public sealed class None<T> : Option<T>, IEquatable<None<T>>, IEquatable<None>
   {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Xunit;
 
-namespace Standard.Options.Tests
+namespace NOption.Tests
 {
     public class Option_As_Should
     {

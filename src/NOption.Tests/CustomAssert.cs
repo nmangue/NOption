@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Standard.Options.Tests
+namespace NOption.Tests
 {
     static class CustomAssert
     {

@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace Standard.Options.Tests
+namespace NOption.Tests
 {
     public class Option_FlatMap_Should
     {

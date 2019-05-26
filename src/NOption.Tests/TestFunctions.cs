@@ -1,4 +1,4 @@
-﻿namespace Standard.Options.Tests
+﻿namespace NOption.Tests
 {
     static class TestFunctions
     {

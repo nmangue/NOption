@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Standard.Options.Extensions
+namespace NOption.Extensions
 {
     public static class ObjectExtensions
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Standard.Options
+namespace NOption
 {
   public sealed class Some<T> : Option<T>, IEquatable<Some<T>>
   {

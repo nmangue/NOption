@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Standard.Options
+namespace NOption
 {
   public abstract class Option<T>
   {

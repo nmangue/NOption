@@ -1,4 +1,4 @@
-namespace Standard.Options
+namespace NOption
 {
   public static class Option
   {

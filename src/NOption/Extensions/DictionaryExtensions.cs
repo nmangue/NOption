@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Standard.Options.Extensions
+namespace NOption.Extensions
 {
     public static class DictionaryExtensions
     {
