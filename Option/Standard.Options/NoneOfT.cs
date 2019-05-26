@@ -34,5 +34,7 @@ namespace Standard.Options
         (!(a is null) && a.Equals(b));
 
     public static bool operator !=(None<T> a, None<T> b) => !(a == b);
+        
+    public static implicit operator None<T>(None _) => new None<T>();
   }
 }
