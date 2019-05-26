@@ -1,7 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>NOption</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>manico</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/nmangue/NOption</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nmangue/NOption.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Option Maybe Some None Null Functional</PackageTags>
+    <Product>NOption</Product>
+    <Description>Implementation of the Option pattern (also called Maybe pattern) for the .NET platform</Description>
+    <Copyright>Copyright ©2019</Copyright>
   </PropertyGroup>
 
 </Project>
