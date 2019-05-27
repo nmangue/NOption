@@ -5,7 +5,7 @@ NOption is a concise and fluent implementation of the Option pattern for the .NE
 ### Add the library namespace
 Simply import the NOption namespace:
 
-```
+```csharp
 import NOption;
 ```
 
@@ -15,7 +15,7 @@ To start using NOption:
   * The return value will implicitely be wrapped in an Option<>;
   * To specify that there is no return value, use Option.None.
 
-```
+```csharp
 Option<Color> GetFavoriteColor(string username)
 {
   if ("Emma".Equals(username))
@@ -30,7 +30,7 @@ Option<Color> GetFavoriteColor(string username)
 ### Working with the result
 To work with result, you can use Match (with named arguments to improve readability):
 
-```
+```csharp
 var result = GetFavoriteColor("Emma");
 result.Match(
   Some: (favoriteColor) => Console.WriteLine($"Emma likes the color {favoriteColor}."),
@@ -41,23 +41,30 @@ result.Match(
 
 You can also unwrap the content with a default value:
 
-```
+```csharp
 var result = GetFavoriteColor("Mark");
 var favoriteColor = result.UnwrapOr(Color.Purple); // Returns Color.Purple
 ```
 
 For convenience, it is also possible to directly unwrap the content. *BUT* it is not safe as it will throw and *InvalidOperationException* if none was returned.
 
-```
+```csharp
 var result = GetFavoriteColor("Edward");
-var favoriteColor = result.Unwrap();
-// => Throws an InvalidOperationException!
+
+try
+{
+  var favoriteColor = result.Unwrap();
+}
+catch (InvalidOperationException)
+{
+  // => Throws an InvalidOperationException!
+}
 ```
 
 ### Bonus
 To rewrite GetFavoriteColor as a one line function, we could have use:
 
-```
+```csharp
 static Option<Color> GetFavoriteColor(string username)
 {
   return "Emma".Equals(username) ? Option.Some(Color.Blue) : Option.None;
