@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NOption</PackageId>
-    <Version>0.1.0</Version>
-    <Authors>manico</Authors>
+    <Version>0.2.0</Version>
+    <Authors>Nicolas Mangué</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/nmangue/NOption</PackageProjectUrl>
     <RepositoryUrl>https://github.com/nmangue/NOption.git</RepositoryUrl>
