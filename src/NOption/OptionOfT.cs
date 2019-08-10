@@ -4,6 +4,11 @@ namespace NOption
 {
   public abstract class Option<T>
   {
+		public void Match(Action<T> Some)
+		{
+			Match(Some, () => { });
+		}
+
     public abstract void Match(Action<T> Some, Action None);
 
     public abstract T Unwrap();
