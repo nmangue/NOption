@@ -12,6 +12,8 @@ namespace NOption
 
     public abstract T UnwrapOr(Func<T> f);
 
+    public abstract bool HasSome(out T value);
+
     public T UnwrapOrDefault()
     {
       return UnwrapOr(default(T));

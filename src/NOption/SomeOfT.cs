@@ -52,9 +52,15 @@ namespace NOption
       return EqualityComparer<T>.Default.GetHashCode(Content);
     }
 
+    public override bool HasSome(out T value)
+    {
+        value = Content;
+        return true;
+    }
+
     public static bool operator ==(Some<T> a, Some<T> b) =>
-            (a is null && b is null) ||
-            (!(a is null) && a.Equals(b));
+        (a is null && b is null) ||
+        (!(a is null) && a.Equals(b));
 
     public static bool operator !=(Some<T> a, Some<T> b) => !(a == b);
 
