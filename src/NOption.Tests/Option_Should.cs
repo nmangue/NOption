@@ -2,25 +2,23 @@ using Xunit;
 
 namespace NOption.Tests
 {
-    public class Option_Should
-    {
-        [Fact]
-        public void BeWrapped_AsSome_FromValue()
-        {
-            var callResult = TestFunctions.CallWithSomeValue();
+	public class Option_Should
+	{
+		[Fact]
+		public void BeWrapped_AsSome_FromValue()
+		{
+			var callResult = TestFunctions.CallWithSomeValue();
 
-            var someResult = callResult as Some<int>;
+			Assert.True(callResult.HasSome(out var value));
+			Assert.Equal(42, value);
+		}
 
-            Assert.NotNull(someResult);
-            Assert.Equal(42, someResult.Content);
-        }
+		[Fact]
+		public void BeWrapped_AsNone_FromGenericNone()
+		{
+			var callResult = TestFunctions.CallWithNone();
 
-        [Fact]
-        public void BeWrapped_AsNone_FromGenericNone()
-        {
-            var callResult = TestFunctions.CallWithNone();
-
-            Assert.True(callResult is None<int>);
-        }
-    }
+			Assert.False(callResult.HasSome(out var value));
+		}
+	}
 }
