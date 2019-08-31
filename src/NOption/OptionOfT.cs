@@ -7,7 +7,7 @@ namespace NOption
 	/// Represents an object that can have some value of type <typeparamref name="T"/>, or none.
 	/// </summary>
 	/// <typeparam name="T">Type of the wrapped value.</typeparam>
-	public readonly struct Option<T> : IEquatable<Option<T>>
+	public readonly struct Option<T> : IEquatable<Option<T>>, IOption<T>
 	{
 		/// <summary>
 		/// Wrapped value, if the option has some.

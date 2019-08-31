@@ -20,5 +20,28 @@ namespace NOption.Tests
 
 			Assert.False(callResult.HasSome(out var value));
 		}
+
+		[Fact]
+		public void TestMyStuff()
+		{
+			Chronique<string> x = new MyStuff<string>();
+			Chronique<object> y = x;
+
+			y.ValeurA();
+
+		}
+	}
+
+	public interface Chronique<out TValeur>
+	{
+		IOption<TValeur> ValeurA();
+	}
+
+	public class MyStuff<T> : Chronique<T>
+	{
+		public IOption<T> ValeurA()
+		{
+			return Option<T>.None;
+		}
 	}
 }
