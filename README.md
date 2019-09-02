@@ -16,14 +16,13 @@ To start using NOption:
   * To specify that there is no return value, use Option.None.
 
 ```csharp
-Option<Color> GetFavoriteColor(string username)
+static Option<Color> GetFavoriteColor(string username)
 {
-  if ("Emma".Equals(username))
-  {
-    return Color.Blue;
-  }
-
-  return Option.None;
+	if ("Emma".Equals(username))
+	{
+		return Color.Blue;
+	}
+	return Option.None;
 }
 ```
 
@@ -33,8 +32,8 @@ To work with result, you can use Match (with named arguments to improve readabil
 ```csharp
 var result = GetFavoriteColor("Emma");
 result.Match(
-  Some: (favoriteColor) => Console.WriteLine($"Emma likes the color {favoriteColor}."),
-  None: () => Console.WriteLine("Emma does not have a favorite color.")
+	Some: (favoriteColor) => Console.WriteLine($"Emma likes the color {favoriteColor}."),
+	None: () => Console.WriteLine("Emma does not have a favorite color.")
 );
 // Print "Emma likes the color Blue"
 ```
@@ -46,18 +45,13 @@ var result = GetFavoriteColor("Mark");
 var favoriteColor = result.UnwrapOr(Color.Purple); // Returns Color.Purple
 ```
 
-For convenience, it is also possible to directly unwrap the content. *BUT* it is not safe as it will throw and *InvalidOperationException* if none was returned.
+Or you can extract the value:
 
 ```csharp
-var result = GetFavoriteColor("Edward");
-
-try
+var result = GetFavoriteColor("Emma");
+if (result.HasSome(out var favoriteColor))
 {
-  var favoriteColor = result.Unwrap();
-}
-catch (InvalidOperationException)
-{
-  // => Throws an InvalidOperationException!
+ Console.WriteLine($"Emma likes the color {favoriteColor}.")
 }
 ```
 
