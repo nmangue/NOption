@@ -25,6 +25,20 @@ namespace NOption.Tests
 			Assert.Equal(Option.None, mapResult);
 		}
 
+		[Fact]
+		public void BeCompatible_WithIOption()
+		{
+			IOption<int> Twice(int other)
+			{
+				return Option.Some(other * 2);
+			}
+
+			var result = TestFunctions.CallWithSomeValue().FlatMap(Twice);
+
+			Assert.True(result.HasSome(out var value));
+			Assert.Equal(84, value);
+		}
+
 		private Option<string> ToOptionString(int value)
 		{
 			return value.ToString();

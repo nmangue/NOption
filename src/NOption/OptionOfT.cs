@@ -190,6 +190,23 @@ namespace NOption
 
 		public override string ToString() => _hasSome ? $"Some({ValueToString})" : "None";
 
+		#region IOption implementation
+		void IOption<T>.Match(Action<T> Some) => Match(Some);
+
+		void IOption<T>.Match(Action<T> Some, Action None) => Match(Some, None);
+
+		IOption<TResult> IOption<T>.Map<TResult>(Func<T, TResult> map) => Map(map);
+
+		public IOption<TResult> FlatMap<TResult>(Func<T, IOption<TResult>> map)
+		{
+			return _hasSome ? map(_value) : Option<TResult>.None;
+		}
+
+		IOption<TNew> IOption<T>.As<TNew>() => As<TNew>();
+
+		T IOption<T>.UnwrapOrDefault() => UnwrapOrDefault();
+		#endregion
+
 		private string ValueToString => _value?.ToString() ?? "<null>";
 	}
 }

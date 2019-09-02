@@ -28,7 +28,7 @@ namespace NOption
 		/// <typeparam name="TResult">The type of the value returned by <paramref name="map"/>.</typeparam>
 		/// <param name="map">A transform function to apply to the option value.</param>
 		/// <returns>The result of invoking the transform function with the option value, if any; otherwhise <c>None</c></returns>
-		Option<TResult> Map<TResult>(Func<T, TResult> map);
+		IOption<TResult> Map<TResult>(Func<T, TResult> map);
 
 		/// <summary>
 		/// Projects the option value into a new form.
@@ -36,14 +36,14 @@ namespace NOption
 		/// <typeparam name="TResult">The type of the value returned by <paramref name="map"/>.</typeparam>
 		/// <param name="map">A transform function to apply to the option value.</param>
 		/// <returns>The result of invoking the transform function with the option value, if any; otherwhise <c>None</c></returns>
-		Option<TResult> FlatMap<TResult>(Func<T, Option<TResult>> map);
+		IOption<TResult> FlatMap<TResult>(Func<T, IOption<TResult>> map);
 
 		/// <summary>
 		/// Returns the option value typed as <typeparamref name="TNew"/>.
 		/// </summary>
 		/// <typeparam name="TNew">The target type.</typeparam>
 		/// <returns>An option wrapping the same value as <typeparamref name="TNew"/>, if any; otherwise, <c>None</c></returns>
-		Option<TNew> As<TNew>() where TNew : class;
+		IOption<TNew> As<TNew>() where TNew : class;
 
 		/// <summary>
 		/// Gets the value wrapped by the option.
