@@ -20,14 +20,14 @@ static Option<Color> GetFavoriteColor(string username)
 {
 	if ("Emma".Equals(username))
 	{
-		return Color.Blue;
+		return Option.Some(Color.Blue);
 	}
-	return Option.None;
+	return Option.None<Color>();
 }
 ```
 
 ### Working with the result
-To work with result, you can use Match (with named arguments to improve readability):
+To work with result, you can use Match:
 
 ```csharp
 var result = GetFavoriteColor("Emma");
@@ -51,7 +51,7 @@ Or you can extract the value:
 var result = GetFavoriteColor("Emma");
 if (result.HasSome(out var favoriteColor))
 {
- Console.WriteLine($"Emma likes the color {favoriteColor}.")
+	Console.WriteLine($"Emma likes the color {favoriteColor}.");
 }
 ```
 
@@ -61,6 +61,6 @@ To rewrite GetFavoriteColor as a one line function, we could have use:
 ```csharp
 static Option<Color> GetFavoriteColor(string username)
 {
-  return "Emma".Equals(username) ? Option.Some(Color.Blue) : Option.None;
+  return Option.Some(Color.Blue, when: "Emma".Equals(username));
 }
 ```
