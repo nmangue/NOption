@@ -11,8 +11,11 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>Option Maybe Some None Null Functional</PackageTags>
     <Product>NOption</Product>
-    <Description>Implementation of the Option pattern (also called Maybe pattern) for the .NET platform</Description>
+    <Description>Implementation of the Option pattern (also called Maybe pattern) for the .NET platform.
+
+For documentation and examples of use, see project website.</Description>
     <Copyright>Copyright ©2020</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
