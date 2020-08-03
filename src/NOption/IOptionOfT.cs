@@ -6,7 +6,7 @@ namespace NOption
 	/// Interface for an object that can have some value of type <typeparamref name="T"/>, or none.
 	/// </summary>
 	/// <typeparam name="T">Type of the wrapped value.</typeparam>
-	public interface IOption<out T>
+	public interface Option<out T>
 	{
 		/// <summary>
 		/// Executes the action <paramref name="Some"/> with the option value, if any.
@@ -28,7 +28,7 @@ namespace NOption
 		/// <typeparam name="TResult">The type of the value returned by <paramref name="map"/>.</typeparam>
 		/// <param name="map">A transform function to apply to the option value.</param>
 		/// <returns>The result of invoking the transform function with the option value, if any; otherwhise <c>None</c></returns>
-		IOption<TResult> Map<TResult>(Func<T, TResult> map);
+		Option<TResult> Map<TResult>(Func<T, TResult> map);
 
 		/// <summary>
 		/// Projects the option value into a new form.
@@ -36,45 +36,26 @@ namespace NOption
 		/// <typeparam name="TResult">The type of the value returned by <paramref name="map"/>.</typeparam>
 		/// <param name="map">A transform function to apply to the option value.</param>
 		/// <returns>The result of invoking the transform function with the option value, if any; otherwhise <c>None</c></returns>
-		IOption<TResult> FlatMap<TResult>(Func<T, IOption<TResult>> map);
+		Option<TResult> FlatMap<TResult>(Func<T, Option<TResult>> map);
 
 		/// <summary>
 		/// Returns the option value typed as <typeparamref name="TNew"/>.
 		/// </summary>
 		/// <typeparam name="TNew">The target type.</typeparam>
 		/// <returns>An option wrapping the same value as <typeparamref name="TNew"/>, if any; otherwise, <c>None</c></returns>
-		IOption<TNew> As<TNew>() where TNew : class;
+		Option<TNew> As<TNew>() where TNew : class;
 
 		/// <summary>
 		/// Gets the value wrapped by the option.
 		/// </summary>
 		/// <returns>The value wrapped by the option, if any; otherwise, the default value for the type of the value parameter.</returns>
 		T UnwrapOrDefault();
-	}
 
-	/// <summary>
-	/// Extensions methods for IOption
-	/// </summary>
-	/// <remarks>
-	/// Those methods can not be declared within a covariant interface.
-	/// </remarks>
-	public static class IOptionExtensions
-	{
 		/// <summary>
 		/// Gets the value wrapped by the option.
 		/// </summary>
-		/// <param name="value">When this method returns, contains the value wrapped by the option, if any; otherwise, the default value for the type of the value parameter. This parameter is passed uninitialized.</param>
-		/// <returns><c>true</c> if the option has a value; otherwise, <c>false</c>.</returns>
-		public static bool HasSome<T>(this IOption<T> option, out T value)
-		{
-			T result = default;
-			bool hasSome = false;
-
-			option.Match(v => { result = v; hasSome = true; });
-
-			value = result;
-
-			return hasSome;
-		}
+		/// <exception cref="InvalidOperationException">The option has no value.</exception>
+		/// <returns>The value wrapped by the option, if any; otherwise, throws an exception.</returns>
+		T UnwrapOrFailure();
 	}
 }

@@ -36,7 +36,7 @@ namespace NOption.Tests
 
 			var mapResult = callResult.Map(x => x.ToString());
 
-			Assert.Equal(Option.None, mapResult);
+			Assert.Equal(Option.None<string>(), mapResult);
 		}
 	}
 }

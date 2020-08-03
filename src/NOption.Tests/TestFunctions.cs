@@ -6,23 +6,23 @@
 
 		internal static Option<int> CallWithSomeValue()
 		{
-			return CallValue;
+			return Option.Some(CallValue);
 		}
 
 		internal static Option<int> CallWithNone()
 		{
-			return Option.None;
+			return Option.None<int>();
 		}
 
 
-		internal static IOption<int> IOptionCallWithSomeValue()
+		internal static Option<int> IOptionCallWithSomeValue()
 		{
 			return Option.Some(CallValue);
 		}
 
-		internal static IOption<int> IOptionCallWithNone()
+		internal static Option<int> IOptionCallWithNone()
 		{
-			return Option<int>.None;
+			return Option.None<int>();
 		}
 	}
 }

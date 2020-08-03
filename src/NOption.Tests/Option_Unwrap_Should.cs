@@ -10,7 +10,7 @@ namespace NOption.Tests
 		{
 			var callResult = TestFunctions.CallWithSomeValue();
 
-			Assert.Equal(TestFunctions.CallValue, callResult.Unwrap());
+			Assert.Equal(TestFunctions.CallValue, callResult.UnwrapOrFailure());
 		}
 
 		[Fact]
@@ -18,7 +18,7 @@ namespace NOption.Tests
 		{
 			var callResult = TestFunctions.CallWithNone();
 
-			Assert.Throws<InvalidOperationException>(() => callResult.Unwrap());
+			Assert.Throws<InvalidOperationException>(() => callResult.UnwrapOrFailure());
 		}
 	}
 }

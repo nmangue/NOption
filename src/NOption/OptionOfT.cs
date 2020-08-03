@@ -7,7 +7,7 @@ namespace NOption
 	/// Represents an object that can have some value of type <typeparamref name="T"/>, or none.
 	/// </summary>
 	/// <typeparam name="T">Type of the wrapped value.</typeparam>
-	public readonly struct Option<T> : IEquatable<Option<T>>, IOption<T>
+	internal readonly struct OptionImpl<T> : IEquatable<OptionImpl<T>>, Option<T>
 	{
 		/// <summary>
 		/// Wrapped value, if the option has some.
@@ -27,17 +27,17 @@ namespace NOption
 		/// </summary>
 		/// <param name="value">The value to be wrapped in an option. (Can be <c>null</c>)</param>
 		/// <returns>An option wrapping the value.</returns>
-		public static Option<T> Some(T value)
+		public static OptionImpl<T> Some(T value)
 		{
-			return new Option<T>(true, value);
+			return new OptionImpl<T>(true, value);
 		}
 
 		/// <summary>
 		/// Option instance with no value.
 		/// </summary>
-		public static Option<T> None { get; } = new Option<T>();
+		public static OptionImpl<T> None { get; } = new OptionImpl<T>();
 
-		private Option(bool hasSome = false, T value = default)
+		private OptionImpl(bool hasSome = false, T value = default)
 		{
 			_hasSome = hasSome;
 			_value = _hasSome ? value : default;
@@ -75,8 +75,7 @@ namespace NOption
 		/// </summary>
 		/// <exception cref="InvalidOperationException">The option has no value.</exception>
 		/// <returns>Option value if any.</returns>
-		[Obsolete("This function is provided only for convenience purpose. It is not safe to use.", false)]
-		public T Unwrap()
+		public T UnwrapOrFailure()
 		{
 			return _hasSome ? _value : throw new InvalidOperationException("This Option has no value");
 		}
@@ -138,7 +137,7 @@ namespace NOption
 		/// <returns>The result of invoking the transform function with the option value, if any; otherwhise <c>None</c></returns>
 		public Option<TResult> Map<TResult>(Func<T, TResult> map)
 		{
-			return _hasSome ? map(_value) : Option<TResult>.None;
+			return _hasSome ? OptionImpl<TResult>.Some(map(_value)) : OptionImpl<TResult>.None;
 		}
 
 		/// <summary>
@@ -149,7 +148,21 @@ namespace NOption
 		/// <returns>The result of invoking the transform function with the option value, if any; otherwhise <c>None</c></returns>
 		public Option<TResult> FlatMap<TResult>(Func<T, Option<TResult>> map)
 		{
-			return _hasSome ? map(_value) : Option<TResult>.None;
+			return _hasSome ? map(_value) : OptionImpl<TResult>.None;
+		}
+
+
+		/// <summary>
+		/// Returns the option value typed as <typeparamref name="TNew"/>.
+		/// </summary>
+		/// <typeparam name="TNew">The target type.</typeparam>
+		/// <returns>An option wrapping the same value as <typeparamref name="TNew"/>, if any; otherwise, <c>None</c></returns>
+		public Option<TNew> As2<TNew>()
+		{
+			var x = _value is TNew newValue ? newValue : default;
+			return _hasSome && typeof(TNew).IsAssignableFrom(typeof(T))
+								? new OptionImpl<TNew>(true, x)
+								: OptionImpl<TNew>.None;
 		}
 
 		/// <summary>
@@ -159,17 +172,18 @@ namespace NOption
 		/// <returns>An option wrapping the same value as <typeparamref name="TNew"/>, if any; otherwise, <c>None</c></returns>
 		public Option<TNew> As<TNew>() where TNew : class
 		{
+			var x = _value is TNew newValue ? newValue : null;
 			return _hasSome && typeof(TNew).IsAssignableFrom(typeof(T))
-								? new Option<TNew>(true, _value as TNew)
-								: Option<TNew>.None;
+								? new OptionImpl<TNew>(true, _value as TNew)
+								: OptionImpl<TNew>.None;
 		}
 
 		public override bool Equals(object other)
 		{
-			return (other is Option<T> otherOption) && Equals(otherOption) || other is None && !_hasSome;
+			return (other is OptionImpl<T> otherOption) && Equals(otherOption);
 		}
 
-		public bool Equals(Option<T> other)
+		public bool Equals(OptionImpl<T> other)
 		{
 			if (_hasSome && other._hasSome)
 			{
@@ -184,24 +198,11 @@ namespace NOption
 			return _hasSome ? EqualityComparer<T>.Default.GetHashCode(_value) : 0;
 		}
 
-		public static implicit operator Option<T>(T value) => Some(value);
+		//public static implicit operator OptionImpl<T>(T value) => Some(value);
 
-		public static implicit operator Option<T>(None _) => None;
+		//public static implicit operator OptionImpl<T>(None _) => None;
 
 		public override string ToString() => _hasSome ? $"Some({ValueToString})" : "None";
-
-		#region IOption implementation
-
-		IOption<TResult> IOption<T>.Map<TResult>(Func<T, TResult> map) => Map(map);
-
-		public IOption<TResult> FlatMap<TResult>(Func<T, IOption<TResult>> map)
-		{
-			return _hasSome ? map(_value) : Option<TResult>.None;
-		}
-
-		IOption<TNew> IOption<T>.As<TNew>() => As<TNew>();
-
-		#endregion
 
 		private string ValueToString => _value?.ToString() ?? "<null>";
 	}

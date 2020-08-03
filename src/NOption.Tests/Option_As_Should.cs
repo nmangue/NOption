@@ -10,7 +10,7 @@ namespace NOption.Tests
 		[Fact]
 		public void CastContent_WhenSome_AndTypeIsAssignable()
 		{
-			Option<List<string>> optionValue = value;
+			Option<List<string>> optionValue = Option.Some(value);
 
 			var optionEnumerable = optionValue.As<IEnumerable<string>>();
 
@@ -21,21 +21,21 @@ namespace NOption.Tests
 		[Fact]
 		public void ReturnNone_WhenSome_ButTypeCantBeAssigned()
 		{
-			Option<List<string>> optionValue = value;
+			Option<List<string>> optionValue = Option.Some(value);
 
 			var optionString = optionValue.As<string>();
 
-			Assert.Equal(Option.None, optionString);
+			Assert.Equal(Option.None<string>(), optionString);
 		}
 
 		[Fact]
 		public void StillBeNone_WhenNone()
 		{
-			Option<int> none = Option.None;
+			Option<int> none = Option.None<int>();
 
 			var optionString = none.As<string>();
 
-			Assert.Equal(Option.None, optionString);
+			Assert.Equal(Option.None<string>(), optionString);
 		}
 	}
 }

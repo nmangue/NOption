@@ -34,14 +34,14 @@ namespace NOption.Tests
 
 	public interface Chronique<out TValeur>
 	{
-		IOption<TValeur> ValeurA();
+		Option<TValeur> ValeurA();
 	}
 
 	public class MyStuff<T> : Chronique<T>
 	{
-		public IOption<T> ValeurA()
+		public Option<T> ValeurA()
 		{
-			return Option<T>.None;
+			return Option.None<T>();
 		}
 	}
 }

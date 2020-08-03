@@ -7,8 +7,8 @@ namespace NOption.Extensions
 	public static class EnumerableExtensions
 	{
 		public static Option<T> FirstOrNone<T>(this IEnumerable<T> sequence) =>
-				sequence.Select(x => Option.Some(x))
-						.DefaultIfEmpty(Option.None)
+				sequence.Select(x => OptionImpl<T>.Some(x))
+						.DefaultIfEmpty(OptionImpl<T>.None)
 						.First();
 
 		public static Option<T> FirstOrNone<T>(
@@ -25,6 +25,32 @@ namespace NOption.Extensions
 					yield return result;
 				}
 			}
+		}
+
+
+		public static Option<T> FirstSome<T>(this IEnumerable<Option<T>> sequence)
+		{
+			foreach (var item in sequence)
+			{
+				if (item.HasSome(out var result))
+				{
+					return Option.Some(result);
+				}
+			}
+			return Option.None<T>();
+		}
+
+
+		public static Option<T> FirstSome<T>(this IEnumerable<Option<T>> sequence, Func<T, bool> predicate)
+		{
+			foreach (var item in sequence)
+			{
+				if (item.HasSome(out var result) && predicate(result))
+				{
+					return Option.Some(result);
+				}
+			}
+			return Option.None<T>();
 		}
 
 	}

@@ -22,13 +22,13 @@ namespace NOption.Tests
 
 			var mapResult = callResult.FlatMap(ToOptionString);
 
-			Assert.Equal(Option.None, mapResult);
+			Assert.Equal(Option.None<string>(), mapResult);
 		}
 
 		[Fact]
 		public void BeCompatible_WithIOption()
 		{
-			IOption<int> Twice(int other)
+			Option<int> Twice(int other)
 			{
 				return Option.Some(other * 2);
 			}
@@ -41,7 +41,7 @@ namespace NOption.Tests
 
 		private Option<string> ToOptionString(int value)
 		{
-			return value.ToString();
+			return Option.Some(value.ToString());
 		}
 	}
 }
