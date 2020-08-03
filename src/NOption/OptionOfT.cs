@@ -43,7 +43,7 @@ namespace NOption
 		/// </summary>
 		/// <typeparam name="TNew">The target type.</typeparam>
 		/// <returns>An option wrapping the same value as <typeparamref name="TNew"/>, if any; otherwise, <c>None</c></returns>
-		Option<TNew> As<TNew>() where TNew : class;
+		Option<TNew> As<TNew>();
 
 		/// <summary>
 		/// Gets the value wrapped by the option.

@@ -8,16 +8,16 @@ namespace NOption
 	public static class Option
 	{
 		/// <summary>
+		/// Option instance with no value.
+		/// </summary>
+		public static Option<T> None<T>() => OptionImpl<T>.None;
+
+		/// <summary>
 		/// Wraps the specified value in an instance of <see cref="Option{T}"/>.
 		/// </summary>
 		/// <param name="value">The value to be wrapped in an option. (Can be <c>null</c>)</param>
 		/// <returns>An option wrapping the value.</returns>
 		public static Option<T> Some<T>(T value) => OptionImpl<T>.Some(value);
-
-		/// <summary>
-		/// Option instance with no value.
-		/// </summary>
-		public static Option<T> None<T>() => OptionImpl<T>.None;
 
 		/// <summary>
 		/// Wraps the specified value in an instance of <see cref="Option{T}"/> if <paramref name="when"/> is <c>true</c>.

@@ -6,7 +6,7 @@ namespace NOption.Tests
 {
 	public class Dictionary_TryGetValue_Should
 	{
-		private readonly IDictionary<string, int> someDic;
+		private readonly Dictionary<string, int> someDic;
 
 		public Dictionary_TryGetValue_Should()
 		{

@@ -151,36 +151,21 @@ namespace NOption
 			return _hasSome ? map(_value) : OptionImpl<TResult>.None;
 		}
 
-
 		/// <summary>
 		/// Returns the option value typed as <typeparamref name="TNew"/>.
 		/// </summary>
 		/// <typeparam name="TNew">The target type.</typeparam>
 		/// <returns>An option wrapping the same value as <typeparamref name="TNew"/>, if any; otherwise, <c>None</c></returns>
-		public Option<TNew> As2<TNew>()
+		public Option<TNew> As<TNew>()
 		{
-			var x = _value is TNew newValue ? newValue : default;
-			return _hasSome && typeof(TNew).IsAssignableFrom(typeof(T))
-								? new OptionImpl<TNew>(true, x)
+			return _hasSome && _value is TNew newValue
+								? new OptionImpl<TNew>(true, newValue)
 								: OptionImpl<TNew>.None;
 		}
 
-		/// <summary>
-		/// Returns the option value typed as <typeparamref name="TNew"/>.
-		/// </summary>
-		/// <typeparam name="TNew">The target type.</typeparam>
-		/// <returns>An option wrapping the same value as <typeparamref name="TNew"/>, if any; otherwise, <c>None</c></returns>
-		public Option<TNew> As<TNew>() where TNew : class
+		public override bool Equals(object obj)
 		{
-			var x = _value is TNew newValue ? newValue : null;
-			return _hasSome && typeof(TNew).IsAssignableFrom(typeof(T))
-								? new OptionImpl<TNew>(true, _value as TNew)
-								: OptionImpl<TNew>.None;
-		}
-
-		public override bool Equals(object other)
-		{
-			return (other is OptionImpl<T> otherOption) && Equals(otherOption);
+			return (obj is OptionImpl<T> otherOption) && Equals(otherOption);
 		}
 
 		public bool Equals(OptionImpl<T> other)
@@ -197,10 +182,6 @@ namespace NOption
 		{
 			return _hasSome ? EqualityComparer<T>.Default.GetHashCode(_value) : 0;
 		}
-
-		//public static implicit operator OptionImpl<T>(T value) => Some(value);
-
-		//public static implicit operator OptionImpl<T>(None _) => None;
 
 		public override string ToString() => _hasSome ? $"Some({ValueToString})" : "None";
 
