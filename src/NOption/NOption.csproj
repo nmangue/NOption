@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NOption</PackageId>
-    <Version>1.1.1</Version>
+    <Version>2.0.0</Version>
     <Authors>Nicolas Mangué</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/nmangue/NOption</PackageProjectUrl>
@@ -12,7 +12,7 @@
     <PackageTags>Option Maybe Some None Null Functional</PackageTags>
     <Product>NOption</Product>
     <Description>Implementation of the Option pattern (also called Maybe pattern) for the .NET platform</Description>
-    <Copyright>Copyright ©2019</Copyright>
+    <Copyright>Copyright ©2020</Copyright>
   </PropertyGroup>
 
 </Project>
